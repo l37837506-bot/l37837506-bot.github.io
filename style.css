@@ -271,20 +271,8 @@ a:hover { color: var(--accent-dark); }
   pointer-events: none;
 }
 
-.hero-grid {
-  --title-size: clamp(2.6rem, 7.6vw, 7.25rem);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(220px, 23vw, 300px);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-}
-
-/* Photo top lines up with the cap height of "AI & Robotics":
-   Inter's cap offset at line-height 0.95 is about 0.11em. */
-.hero-photo { margin-top: calc(0.11 * var(--title-size)); }
-
 .hero-title {
-  font-size: var(--title-size);
+  font-size: clamp(2.6rem, 7.6vw, 7.25rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.035em;
@@ -307,17 +295,6 @@ a:hover { color: var(--accent-dark); }
   align-items: center;
   gap: 12px;
   margin-top: 36px;
-}
-
-.hero-photo img {
-  /* Trim some of the headroom: 3:4 frame anchored to the bottom, so only the top is cropped. */
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: 50% 100%;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg);
-  box-shadow: var(--shadow);
 }
 
 /* ---------- Sections ---------- */
@@ -373,22 +350,24 @@ a:hover { color: var(--accent-dark); }
 .about-text p + p { margin-top: 20px; }
 .about-lead + p { margin-top: 32px; }
 
-.profile-card {
+/* Portrait stays in view while the About text scrolls past it. */
+.about-photo {
   position: sticky;
-  top: calc(var(--nav-h) + 24px);
-  padding: 32px;
+  top: calc(var(--nav-h) + 32px);
+  justify-self: end;
+  width: 100%;
+  max-width: 380px;
+}
+.about-photo img {
+  /* Trim some of the headroom: 3:4 frame anchored to the bottom, so only the top is cropped. */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
   box-shadow: var(--shadow);
 }
-.profile-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
-.profile-name [lang="ko"] { margin-left: 6px; font-size: 15px; font-weight: 500; color: var(--muted); }
-.profile-role { margin-top: 2px; font-size: 15px; color: var(--muted); }
-
-.facts { margin-top: 24px; border-top: 1px solid var(--line); }
-.facts > div { padding: 14px 0; border-bottom: 1px solid var(--line); }
-.facts dd { margin-top: 2px; font-size: 15px; color: var(--ink); }
-.fact-line { display: block; font-size: 14px; color: var(--muted); }
-
-.profile-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 
 /* 01 — Highlights */
 
@@ -894,8 +873,7 @@ a:hover { color: var(--accent-dark); }
 .js-anim .hero-title,
 .js-anim .hero-sub,
 .js-anim .hero-desc,
-.js-anim .hero-cta,
-.js-anim .hero-photo { visibility: hidden; }
+.js-anim .hero-cta { visibility: hidden; }
 
 /* SplitText word masks: leave room for descenders and heavy side bearings. */
 .split-mask { padding: 0 0.05em 0.16em; margin: 0 -0.05em -0.16em; }
@@ -914,15 +892,13 @@ a:hover { color: var(--accent-dark); }
 }
 
 @media (max-width: 767px) {
-  .hero-grid,
   .about-grid,
   .contact-grid,
   .entry { grid-template-columns: minmax(0, 1fr); }
 
   .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-  .hero-photo { width: 60%; margin-top: 0; }
 
-  .profile-card { position: static; padding: 24px; }
+  .about-photo { position: static; justify-self: start; width: 60%; }
 
   .work-grid,
   .skills-grid { grid-template-columns: minmax(0, 1fr); }
