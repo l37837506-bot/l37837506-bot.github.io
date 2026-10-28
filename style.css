@@ -269,15 +269,20 @@ a:hover { color: var(--accent-dark); }
 }
 
 .hero-grid {
+  --title-size: clamp(2.6rem, 7.6vw, 7.25rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(220px, 23vw, 300px);
   gap: clamp(32px, 5vw, 72px);
-  align-items: end;
+  align-items: start;
 }
+
+/* Photo top lines up with the cap height of "AI & Robotics":
+   kicker line (12px × 1.6) + title margin (20px) + Inter's cap offset at line-height 0.95 (≈0.11em). */
+.hero-photo { margin-top: calc(12px * 1.6 + 20px + 0.11 * var(--title-size)); }
 
 .hero-title {
   margin-top: 20px;
-  font-size: clamp(2.6rem, 7.6vw, 7.25rem);
+  font-size: var(--title-size);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.035em;
@@ -303,6 +308,10 @@ a:hover { color: var(--accent-dark); }
 }
 
 .hero-photo img {
+  /* Trim some of the headroom: 3:4 frame anchored to the bottom, so only the top is cropped. */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg);
@@ -799,7 +808,7 @@ a:hover { color: var(--accent-dark); }
   .entry { grid-template-columns: minmax(0, 1fr); }
 
   .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-  .hero-photo { width: 60%; }
+  .hero-photo { width: 60%; margin-top: 0; }
 
   .profile-card { position: static; padding: 24px; }
 
