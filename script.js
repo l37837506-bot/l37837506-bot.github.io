@@ -13,6 +13,8 @@
   gsap.registerPlugin(ScrollTrigger);
   if (hasSplit) gsap.registerPlugin(SplitText);
   ScrollTrigger.config({ ignoreMobileResize: true });
+  // Reveals use toggleActions 'play none none none' rather than `once: true`: a `once` trigger that
+  // is already past its start on a mid-page load kills itself during the init refresh and GSAP throws.
 
   var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
@@ -70,6 +72,26 @@
     return tl;
   }
 
+  // Intro for the highlight detail pages (projects/*.html).
+  function detailIntro() {
+    var tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.1 } });
+    var title = $('.detail-title');
+    var text = $('.detail-title-text');
+
+    tl.from('.nav', { yPercent: -100, autoAlpha: 0, duration: 0.9 }, 0)
+      .from(['.detail-hero .back-link', '.detail-hero .kicker'], { y: 14, autoAlpha: 0, stagger: 0.08 }, 0.1);
+    if (hasSplit && text) {
+      tl.from(splitHeadingChars(text, title), { yPercent: 115, stagger: 0.015 }, 0.2);
+    } else {
+      tl.from(title, { y: 40, autoAlpha: 0 }, 0.2);
+    }
+    tl.from('.detail-lede', { y: 20, autoAlpha: 0 }, 0.55)
+      .from('.detail-facts > div', { y: 16, autoAlpha: 0, stagger: 0.06 }, 0.7);
+
+    reveal();
+    return tl;
+  }
+
   function heroParallax() {
     var scrub = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
     gsap.to('.hero-title', { yPercent: -16, ease: 'none', scrollTrigger: scrub });
@@ -106,7 +128,7 @@
     $$('.sec-head').forEach(function (head) {
       var tl = gsap.timeline({
         defaults: { ease: 'expo.out', duration: 0.9 },
-        scrollTrigger: { trigger: head, start: 'top 85%', once: true }
+        scrollTrigger: { trigger: head, start: 'top 85%', toggleActions: 'play none none none' }
       });
       var rule = $('.sec-rule', head);
       var num = $('.sec-num', head);
@@ -130,7 +152,7 @@
     ['.about-lead', '.contact-title'].forEach(function (sel) {
       var el = $(sel);
       if (!el) return;
-      var st = { trigger: el, start: 'top 85%', once: true };
+      var st = { trigger: el, start: 'top 85%', toggleActions: 'play none none none' };
       if (hasSplit) {
         var words = SplitText.create(el, { type: 'words', wordsClass: 'split', mask: 'words', aria: 'none' }).words;
         gsap.from(words, { yPercent: 110, duration: 1, ease: 'expo.out', stagger: 0.035, scrollTrigger: st });
@@ -138,29 +160,38 @@
         gsap.from(el, { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', scrollTrigger: st });
       }
     });
-    gsap.from(['#contact .kicker', '.contact-sub'], {
-      y: 14, autoAlpha: 0, duration: 0.9, ease: 'power3.out', stagger: 0.15,
-      scrollTrigger: { trigger: '#contact', start: 'top 80%', once: true }
+    if ($('#contact')) {
+      gsap.from(['#contact .kicker', '.contact-sub'], {
+        y: 14, autoAlpha: 0, duration: 0.9, ease: 'power3.out', stagger: 0.15,
+        scrollTrigger: { trigger: '#contact', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+    }
+    // Detail-page prose: paragraphs rise in as they enter.
+    $$('.detail-prose p').forEach(function (p) {
+      gsap.from(p, {
+        y: 20, autoAlpha: 0, duration: 0.9, ease: 'expo.out',
+        scrollTrigger: { trigger: p, start: 'top 88%', toggleActions: 'play none none none' }
+      });
     });
   }
 
-  // About portrait: opens upward and settles from a slight zoom.
+  // About portrait: the frame opens upward, the photo settles from a slight zoom, then the caption follows.
   function aboutPhoto() {
     var fig = $('.about-photo');
     if (!fig) return;
-    gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 80%', once: true } })
-      .fromTo(fig,
+    gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 80%', toggleActions: 'play none none none' } })
+      .fromTo($('.about-photo-frame', fig),
         { clipPath: 'inset(100% 0% 0% 0% round 8px)' },
         { clipPath: 'inset(0% 0% 0% 0% round 8px)', duration: 1.4, ease: 'expo.inOut', clearProps: 'clipPath' }, 0)
-      .from($('img', fig), { scale: 1.3, duration: 1.4, ease: 'expo.out' }, 0);
+      .from($('img', fig), { scale: 1.3, duration: 1.4, ease: 'expo.out' }, 0)
+      .from($$('.about-caption > *', fig), { y: 12, autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }, 0.8);
   }
 
   function cards() {
-    var targets = $$('.work-grid > li, .skill-card, .degree, .cert, .project-card, .contact-card');
+    var targets = $$('.work-grid > li, .skill-card, .degree, .cert, .project-card, .contact-card, .feature, .pager-link, .code-window');
     gsap.set(targets, { y: 48, autoAlpha: 0 });
     ScrollTrigger.batch(targets, {
       start: 'top 90%',
-      once: true,
       onEnter: function (batch) {
         gsap.to(batch, { y: 0, autoAlpha: 1, duration: 1, ease: 'expo.out', stagger: 0.1, overwrite: true, clearProps: 'transform' });
       }
@@ -169,15 +200,17 @@
     $$('.skill-card').forEach(function (card) {
       gsap.from($$('li', card), {
         x: -10, autoAlpha: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.25,
-        scrollTrigger: { trigger: card, start: 'top 90%', once: true }
+        scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none none' }
       });
     });
 
     // Big index numbers drift slightly against the scroll.
-    gsap.fromTo('.work-num', { yPercent: 35 }, {
-      yPercent: -35, ease: 'none',
-      scrollTrigger: { trigger: '.work-grid', start: 'top bottom', end: 'bottom top', scrub: true }
-    });
+    if ($('.work-grid')) {
+      gsap.fromTo('.work-num', { yPercent: 35 }, {
+        yPercent: -35, ease: 'none',
+        scrollTrigger: { trigger: '.work-grid', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    }
 
     // Stacking highlight cards: each card eases back as the next one slides over it
     // (sticky offsets come from style.css: nav height + 32px + 16px per card).
@@ -210,7 +243,7 @@
     $$('.entry').forEach(function (entry) {
       var tl = gsap.timeline({
         defaults: { ease: 'expo.out', duration: 1 },
-        scrollTrigger: { trigger: entry, start: 'top 82%', once: true }
+        scrollTrigger: { trigger: entry, start: 'top 82%', toggleActions: 'play none none none' }
       });
       if (entry.closest('.timeline')) {
         tl.fromTo(entry, { '--dot': 0 }, { '--dot': 1, duration: 0.7, ease: 'back.out(3)' }, 0);
@@ -225,26 +258,27 @@
     if (activities.length) {
       gsap.from(activities, {
         x: -16, autoAlpha: 0, duration: 0.8, ease: 'expo.out', stagger: 0.08,
-        scrollTrigger: { trigger: '.activities', start: 'top 88%', once: true }
+        scrollTrigger: { trigger: '.activities', start: 'top 88%', toggleActions: 'play none none none' }
       });
     }
   }
 
+  // Project card on the main page, plus steps / code window / results wherever they appear.
   function project() {
     var card = $('.project-card');
-    if (!card) return;
-
-    gsap.from('.rank', {
-      scale: 0.6, autoAlpha: 0, filter: 'blur(16px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter',
-      scrollTrigger: { trigger: card, start: 'top 75%', once: true }
-    });
-    // Slow drift of the award panel's gradient.
-    gsap.to('.project-side', { backgroundPosition: '100% 100%', duration: 7, ease: 'sine.inOut', repeat: -1, yoyo: true });
+    if (card) {
+      gsap.from('.rank', {
+        scale: 0.6, autoAlpha: 0, filter: 'blur(16px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter',
+        scrollTrigger: { trigger: card, start: 'top 75%', toggleActions: 'play none none none' }
+      });
+      // Slow drift of the award panel's gradient.
+      gsap.to('.project-side', { backgroundPosition: '100% 100%', duration: 7, ease: 'sine.inOut', repeat: -1, yoyo: true });
+    }
 
     $$('.step').forEach(function (step) {
       gsap.timeline({
         defaults: { ease: 'expo.out', duration: 0.9 },
-        scrollTrigger: { trigger: step, start: 'top 82%', once: true }
+        scrollTrigger: { trigger: step, start: 'top 82%', toggleActions: 'play none none none' }
       })
         .fromTo(step, { '--dot': 0 }, { '--dot': 1, duration: 0.6, ease: 'back.out(3)' }, 0)
         .fromTo(step, { '--rail': 0 }, { '--rail': 1, duration: 1.2, ease: 'power2.inOut' }, 0.2)
@@ -259,14 +293,16 @@
       }).join('');
       gsap.fromTo($$('.code-line', code), { clipPath: 'inset(0% 100% 0% 0%)' }, {
         clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'power2.out', stagger: 0.12,
-        scrollTrigger: { trigger: '.code-window', start: 'top 80%', once: true }
+        scrollTrigger: { trigger: '.code-window', start: 'top 80%', toggleActions: 'play none none none' }
       });
     }
 
-    gsap.from('.results tbody tr', {
-      x: 24, autoAlpha: 0, duration: 0.9, ease: 'expo.out', stagger: 0.12,
-      scrollTrigger: { trigger: '.results', start: 'top 85%', once: true }
-    });
+    if ($('.results')) {
+      gsap.from('.results tbody tr', {
+        x: 24, autoAlpha: 0, duration: 0.9, ease: 'expo.out', stagger: 0.12,
+        scrollTrigger: { trigger: '.results', start: 'top 85%', toggleActions: 'play none none none' }
+      });
+    }
   }
 
   // Pointer-only niceties: magnetic hero buttons, tilt + spotlight on highlight cards.
@@ -313,8 +349,9 @@
     }, function (context) {
       if (!context.conditions.motion) { reveal(); return; }
 
-      var tl = intro();
-      heroParallax();
+      var isDetail = !!$('.detail-hero');
+      var tl = isDetail ? detailIntro() : intro();
+      if (!isDetail) heroParallax();
       navAutoHide();
       marquee();
       sectionHeads();

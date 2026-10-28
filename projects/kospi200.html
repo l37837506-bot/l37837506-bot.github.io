@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KOSPI 200 direction prediction — Chaehyeon Lee</title>
+  <meta name="description" content="KOSPI 200 market direction prediction with ensemble models and CNN — 3rd Place, Big Festa Project Competition, Korea University Sejong Campus (2024).">
+  <meta name="theme-color" content="#F2F4F8">
+  <link rel="canonical" href="https://l37837506-bot.github.io/projects/kospi200.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l37837506-bot.github.io/projects/kospi200.html">
+  <meta property="og:title" content="Predicting KOSPI 200 Trends Using Ensemble Models and CNN — Chaehyeon Lee">
+  <meta property="og:description" content="KOSPI 200 market direction prediction with ensemble models and CNN — 3rd Place, Big Festa Project Competition, Korea University Sejong Campus (2024).">
+  <meta property="og:image" content="https://l37837506-bot.github.io/assets/profile.jpg">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    // Hide the hero only while the intro animation is about to run (script.js); never leave it hidden.
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      document.documentElement.classList.add('js-anim');
+      setTimeout(function () { document.documentElement.classList.remove('js-anim'); }, 3000);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q" crossorigin="anonymous" defer></script>
+  <script src="../script.js" defer></script>
+</head>
+<body id="top" class="detail-page">
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="../index.html" aria-label="Chaehyeon Lee, portfolio home">CL</a>
+      <nav aria-label="Portfolio sections">
+        <ul class="nav-links">
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#highlights" class="is-active">Highlights</a></li>
+          <li><a href="../index.html#career">Career</a></li>
+          <li><a href="../index.html#project">Project</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#experience">Experience</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-outline btn-sm" href="https://www.linkedin.com/in/chaehyeon-lee123" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="detail-hero band-soft">
+      <div class="container">
+        <a class="back-link" href="../index.html#highlights"><span aria-hidden="true">←</span> All highlights</a>
+        <p class="kicker accent">Highlight 04 · 2024 · Korea University Sejong Campus</p>
+        <h1 class="detail-title"><span class="detail-title-text">Predicting KOSPI 200 Trends Using Ensemble Models and CNN</span></h1>
+        <p class="detail-lede">Machine learning on KOSPI 200 market data from 2000–2023, comparing four ensemble models with CNN and LSTM. 3rd Place at the Big Festa Project Competition, School of Big Data Science, Korea University Sejong Campus.</p>
+        <dl class="detail-facts">
+          <div><dt class="kicker">Period</dt><dd>Mar 2024 – Jun 2024</dd></div>
+          <div><dt class="kicker">Team</dt><dd>With one teammate</dd></div>
+          <div><dt class="kicker">Award</dt><dd>3rd Place, Big Festa Project Competition · Dec 2024</dd></div>
+          <div><dt class="kicker">Output</dt><dd>Research poster</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s01-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s01-h"><span class="sec-num">01</span> <span class="sec-label">Background</span></h2>
+          <p class="sec-sub">From coursework to competition</p>
+        </header>
+
+        <div class="sec-body">
+          <div class="detail-prose">
+            <p>This project started as a Statistics and Machine Learning course assignment focused on applying ensemble machine-learning models to a real-world dataset. Together with a teammate, I chose to analyze KOSPI 200 market direction, building on the coursework by extending the project with deep-learning models and preparing it for a departmental competition.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided" aria-labelledby="s02-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s02-h"><span class="sec-num">02</span> <span class="sec-label">Approach</span></h2>
+          <p class="sec-sub">Features and models</p>
+        </header>
+
+        <div class="sec-body">
+          <div class="detail-prose">
+            <p>We analyzed KOSPI 200 historical market data from 2000–2023 and constructed return- and volatility-based features for market direction prediction. On the ensemble side, we built and evaluated Random Forest, LightGBM, XGBoost and CatBoost, with GridSearchCV for hyperparameter tuning. On the deep-learning side, we implemented CNN and LSTM to capture spatial and temporal patterns in the financial data.</p>
+          </div>
+          <figure class="code-window">
+            <figcaption class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>setup — KOSPI 200</figcaption>
+<pre><code><span class="c"># KOSPI 200 market direction · Mar–Jun 2024</span>
+<span class="k">data</span>     = <span class="s">"KOSPI 200, 2000–2023"</span>
+<span class="k">features</span> = [<span class="s">"returns"</span>, <span class="s">"volatility"</span>]
+<span class="k">ensemble</span> = [<span class="s">"RandomForest"</span>, <span class="s">"LightGBM"</span>, <span class="s">"XGBoost"</span>, <span class="s">"CatBoost"</span>]
+<span class="k">tuning</span>   = <span class="s">"GridSearchCV"</span>
+<span class="k">deep</span>     = [<span class="s">"CNN"</span>, <span class="s">"LSTM"</span>]
+<span class="k">metrics</span>  = [<span class="s">"MAE"</span>, <span class="s">"MSE"</span>, <span class="s">"cumulative returns"</span>]</code></pre>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided" aria-labelledby="s03-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s03-h"><span class="sec-num">03</span> <span class="sec-label">Results</span></h2>
+          <p class="sec-sub">MAE, MSE and cumulative returns</p>
+        </header>
+
+        <div class="sec-body">
+          <div class="detail-prose">
+            <p>Model performance was compared using MAE, MSE and cumulative returns. Among ensemble models, Random Forest performed best; among deep-learning models, CNN outperformed LSTM.</p>
+          </div>
+          <table class="results">
+            <caption class="sr-only">Best results by model group</caption>
+            <thead>
+              <tr><th scope="col">Group</th><th scope="col">Model</th><th scope="col" class="num">MSE</th><th scope="col" class="num">MAE</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Ensemble</td><td>Random Forest</td><td class="num">0.005</td><td class="num">0.06</td></tr>
+              <tr><td>Deep learning</td><td>CNN</td><td class="num">0.0067</td><td class="num">0.069</td></tr>
+            </tbody>
+          </table>
+          <div class="detail-prose">
+            <p>We presented our methodology, results and conclusions on a research poster, which received 3rd place in the competition.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided" aria-labelledby="s04-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s04-h"><span class="sec-num">04</span> <span class="sec-label">Takeaways</span></h2>
+          <p class="sec-sub">What carried over</p>
+        </header>
+
+        <div class="sec-body">
+          <div class="detail-prose">
+            <p>The project gave me hands-on experience across the full data science workflow — feature engineering, model selection, hyperparameter tuning, evaluation, and communicating findings clearly through visual and written formats.</p>
+            <p>While it focused on financial data, the analytical techniques transfer directly to the health-data analytics I now pursue at work and through independent study.</p>
+          </div>
+          <p class="tags"><span>Machine Learning</span><span>Deep Learning</span><span>Data Analysis</span><span>Statistical Analysis</span><span>Feature Engineering</span><span>Data Visualization</span><span>Python</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided detail-more" aria-label="More highlights">
+      <div class="container detail-pager">
+        <a class="card pager-link" href="../index.html#highlights">
+          <span class="kicker">Back</span>
+          <span class="pager-title"><span aria-hidden="true">←</span> All highlights</span>
+        </a>
+        <a class="card pager-link pager-next" href="medibot.html">
+          <span class="kicker">Next highlight · 01</span>
+          <span class="pager-title">MediBot <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer band-soft">
+    <div class="container footer-inner">
+      <p>© 2026 Chaehyeon Lee</p>
+      <p>AI &amp; Robotics Education · Bio &amp; Healthcare Data</p>
+    </div>
+  </footer>
+
+  <a class="to-top" href="#top" aria-label="Back to top"><span aria-hidden="true">↑</span></a>
+</body>
+</html>

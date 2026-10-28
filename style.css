@@ -358,16 +358,39 @@ a:hover { color: var(--accent-dark); }
   width: 100%;
   max-width: 380px;
 }
-.about-photo img {
-  /* Trim some of the headroom: 3:4 frame anchored to the bottom, so only the top is cropped. */
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: 50% 100%;
+/* The frame carries border and shadow and clips the photo, so script.js can zoom the image inside it. */
+.about-photo-frame {
+  overflow: clip;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg);
   box-shadow: var(--shadow);
 }
+.about-photo img {
+  /* Trim some of the headroom: 3:4 frame anchored to the bottom, so only the top is cropped. */
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+.about-caption { display: grid; gap: 2px; margin-top: 18px; }
+.about-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+.about-name [lang="ko"] { margin-left: 6px; font-size: 14px; font-weight: 500; color: var(--muted); }
+.about-role { font-size: 15px; color: var(--text); }
+
+/* School rows under the portrait: cap icon + one line each. */
+.edu-list { display: grid; gap: 10px; margin-top: 16px; }
+.edu-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.edu-icon { flex: none; margin-top: 1px; color: var(--text); }
+.nowrap { white-space: nowrap; }
 
 /* 01 — Highlights */
 
@@ -866,6 +889,89 @@ a:hover { color: var(--accent-dark); }
   .project-side-inner { position: sticky; top: calc(var(--nav-h) + 40px); }
 }
 
+/* ---------- Highlight detail pages (projects/*.html) ---------- */
+
+.detail-hero { padding: clamp(48px, 7vw, 96px) 0 clamp(56px, 7vw, 88px); }
+
+.back-link {
+  display: inline-flex;
+  gap: 8px;
+  font: 500 12.5px var(--mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.back-link:hover { color: var(--accent); }
+
+.detail-hero .kicker { margin-top: 40px; }
+.detail-title {
+  max-width: 15em;
+  margin-top: 14px;
+  font-size: clamp(2.4rem, 5.4vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.detail-lede {
+  max-width: 40em;
+  margin-top: 24px;
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.55;
+}
+
+.detail-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.detail-facts > div { padding: 16px 24px 16px 0; border-bottom: 1px solid var(--line); }
+.detail-facts dd { margin-top: 4px; font-size: 15px; color: var(--ink); }
+
+.detail-prose { max-width: 44em; }
+.detail-prose p { font-size: 17px; line-height: 1.8; }
+.detail-prose p + p { margin-top: 16px; }
+.detail-page .sec-body > * + * { margin-top: 28px; }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.feature { padding: 24px; }
+.feature-title {
+  margin-top: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.feature p { margin-top: 6px; font-size: 15px; color: var(--muted); }
+
+.steps-compact { margin-top: 0; }
+.steps-compact .step { padding-bottom: 18px; }
+.steps-compact .step-label { color: var(--ink); }
+
+.detail-pager {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 16px;
+}
+.pager-link {
+  display: grid;
+  gap: 6px;
+  padding: 24px 28px;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.pager-link:hover { border-color: var(--line-strong); box-shadow: var(--shadow); color: inherit; }
+.pager-title { font-size: clamp(18px, 1.8vw, 22px); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+.pager-next { text-align: right; }
+.pager-link:hover .pager-title { color: var(--accent); }
+
 /* ---------- Motion hooks (script.js) ---------- */
 
 /* Hero stays hidden only until the intro timeline takes over; the class is removed if GSAP never loads. */
@@ -873,7 +979,8 @@ a:hover { color: var(--accent-dark); }
 .js-anim .hero-title,
 .js-anim .hero-sub,
 .js-anim .hero-desc,
-.js-anim .hero-cta { visibility: hidden; }
+.js-anim .hero-cta,
+.js-anim .detail-hero .container > * { visibility: hidden; }
 
 /* SplitText word masks: leave room for descenders and heavy side bearings. */
 .split-mask { padding: 0 0.05em 0.16em; margin: 0 -0.05em -0.16em; }
@@ -927,6 +1034,9 @@ a:hover { color: var(--accent-dark); }
   .cert-meta { text-align: left; }
 
   .contact-rows > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+
+  .detail-pager { grid-template-columns: minmax(0, 1fr); }
+  .pager-next { text-align: left; }
 
   .to-top { right: 16px; bottom: 16px; }
 }

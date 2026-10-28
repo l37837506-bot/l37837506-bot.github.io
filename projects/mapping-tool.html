@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web-based mapping tool — Chaehyeon Lee</title>
+  <meta name="description" content="A web-based tool for real-time mission data collection and visualization during an extreme-environment robotics mission at Seoul Robot &amp; AI Museum.">
+  <meta name="theme-color" content="#F2F4F8">
+  <link rel="canonical" href="https://l37837506-bot.github.io/projects/mapping-tool.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l37837506-bot.github.io/projects/mapping-tool.html">
+  <meta property="og:title" content="Web-based mapping tool — Chaehyeon Lee">
+  <meta property="og:description" content="A web-based tool for real-time mission data collection and visualization during an extreme-environment robotics mission at Seoul Robot &amp; AI Museum.">
+  <meta property="og:image" content="https://l37837506-bot.github.io/assets/profile.jpg">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    // Hide the hero only while the intro animation is about to run (script.js); never leave it hidden.
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      document.documentElement.classList.add('js-anim');
+      setTimeout(function () { document.documentElement.classList.remove('js-anim'); }, 3000);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q" crossorigin="anonymous" defer></script>
+  <script src="../script.js" defer></script>
+</head>
+<body id="top" class="detail-page">
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="../index.html" aria-label="Chaehyeon Lee, portfolio home">CL</a>
+      <nav aria-label="Portfolio sections">
+        <ul class="nav-links">
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#highlights" class="is-active">Highlights</a></li>
+          <li><a href="../index.html#career">Career</a></li>
+          <li><a href="../index.html#project">Project</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#experience">Experience</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-outline btn-sm" href="https://www.linkedin.com/in/chaehyeon-lee123" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="detail-hero band-soft">
+      <div class="container">
+        <a class="back-link" href="../index.html#highlights"><span aria-hidden="true">←</span> All highlights</a>
+        <p class="kicker accent">Highlight 03 · 2026 · Seoul Robot &amp; AI Museum</p>
+        <h1 class="detail-title"><span class="detail-title-text">Web-based mapping tool</span></h1>
+        <p class="detail-lede">A web-based tool I designed for real-time mission data collection and visualization during the extreme-environment mission of the modular robotics programme.</p>
+        <dl class="detail-facts">
+          <div><dt class="kicker">Role</dt><dd>Designed and developed</dd></div>
+          <div><dt class="kicker">Built for</dt><dd>Extreme-environment mission (<a href="modular-robotics.html">Highlight 02</a>)</dd></div>
+          <div><dt class="kicker">Purpose</dt><dd>Real-time mission data collection and visualization</dd></div>
+          <div><dt class="kicker">Stack</dt><dd>JavaScript · HTML · CSS · Firebase Realtime Database</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s01-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s01-h"><span class="sec-num">01</span> <span class="sec-label">Overview</span></h2>
+          <p class="sec-sub">Why the tool exists</p>
+        </header>
+
+        <div class="sec-body">
+          <div class="detail-prose">
+            <p>The extreme-environment exploration mission is the core of the two-hour modular robotics programme I led for high-school students.</p>
+            <p>Developing the mapping program was part of the full process I handled, alongside planning, robot selection, obstacle design and map layout. The result is a web-based tool that collects mission data and visualizes it in real time during the mission.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided" aria-labelledby="s02-h">
+      <div class="container sec-layout">
+        <header class="sec-head">
+          <span class="sec-rule" aria-hidden="true"></span>
+          <h2 class="sec-title" id="s02-h"><span class="sec-num">02</span> <span class="sec-label">What it does</span></h2>
+          <p class="sec-sub">Collect, visualize, in real time</p>
+        </header>
+
+        <div class="sec-body">
+          <ul class="feature-grid">
+            <li class="card feature">
+              <span class="kicker accent">01</span>
+              <h3 class="feature-title">Real-time collection</h3>
+              <p>Mission data is collected while the mission runs.</p>
+            </li>
+            <li class="card feature">
+              <span class="kicker accent">02</span>
+              <h3 class="feature-title">Visualization</h3>
+              <p>The collected mission data is visualized in real time.</p>
+            </li>
+            <li class="card feature">
+              <span class="kicker accent">03</span>
+              <h3 class="feature-title">Web stack</h3>
+              <p>Built with JavaScript, HTML and CSS on Firebase Realtime Database.</p>
+            </li>
+          </ul>
+          <p class="tags"><span>JavaScript</span><span>Firebase Realtime Database</span><span>Data Visualization</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section divided detail-more" aria-label="More highlights">
+      <div class="container detail-pager">
+        <a class="card pager-link" href="../index.html#highlights">
+          <span class="kicker">Back</span>
+          <span class="pager-title"><span aria-hidden="true">←</span> All highlights</span>
+        </a>
+        <a class="card pager-link pager-next" href="kospi200.html">
+          <span class="kicker">Next highlight · 04</span>
+          <span class="pager-title">KOSPI 200 direction prediction <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer band-soft">
+    <div class="container footer-inner">
+      <p>© 2026 Chaehyeon Lee</p>
+      <p>AI &amp; Robotics Education · Bio &amp; Healthcare Data</p>
+    </div>
+  </footer>
+
+  <a class="to-top" href="#top" aria-label="Back to top"><span aria-hidden="true">↑</span></a>
+</body>
+</html>
