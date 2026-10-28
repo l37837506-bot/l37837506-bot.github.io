@@ -25,6 +25,17 @@
   <!-- Korean glyphs only where they appear: 이채현, 동행 -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&text=%EC%9D%B4%EC%B1%84%ED%98%84%EB%8F%99%ED%96%89&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Hide the hero only while the intro animation is about to run (script.js); never leave it hidden.
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      document.documentElement.classList.add('js-anim');
+      setTimeout(function () { document.documentElement.classList.remove('js-anim'); }, 3000);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q" crossorigin="anonymous" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body id="top">
   <div class="progress" aria-hidden="true"></div>
@@ -57,9 +68,9 @@
         <div class="hero-text">
           <h1 class="hero-title">
             <span class="sr-only">Chaehyeon Lee — </span>
-            <span>AI &amp; Robotics</span>
-            <span class="indent">Education</span>
-            <span class="indent">Researcher</span>
+            <span class="line">AI &amp; Robotics</span>
+            <span class="line indent">Education</span>
+            <span class="line indent">Researcher</span>
           </h1>
           <p class="hero-sub">Bio · Healthcare Data</p>
           <p class="hero-desc">AI &amp; robotics education researcher at Seoul Robot &amp; AI Museum, working toward data analysis in bio and healthcare.</p>
@@ -75,6 +86,11 @@
         </figure>
       </div>
     </section>
+
+    <!-- Keyword band (decorative, moves with scroll) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track"><span>AI</span><span>Robotics</span><span>Education</span><span>Bio</span><span>Healthcare</span><span>Data</span><span>AI</span><span>Robotics</span><span>Education</span><span>Bio</span><span>Healthcare</span><span>Data</span><span>AI</span><span>Robotics</span><span>Education</span><span>Bio</span><span>Healthcare</span><span>Data</span></div>
+    </div>
 
     <!-- About -->
     <section class="section band-soft" id="about" aria-labelledby="about-h">
@@ -114,7 +130,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="highlights-h"><span class="sec-num">01</span> Highlights</h2>
+          <h2 class="sec-title" id="highlights-h"><span class="sec-num">01</span> <span class="sec-label">Highlights</span></h2>
           <p class="sec-sub">Programmes, tools and projects from work and study</p>
         </header>
 
@@ -164,7 +180,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="career-h"><span class="sec-num">02</span> Career</h2>
+          <h2 class="sec-title" id="career-h"><span class="sec-num">02</span> <span class="sec-label">Career</span></h2>
           <p class="sec-sub">Roles and affiliations</p>
         </header>
 
@@ -220,7 +236,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="project-h"><span class="sec-num">03</span> Project</h2>
+          <h2 class="sec-title" id="project-h"><span class="sec-num">03</span> <span class="sec-label">Project</span></h2>
           <p class="sec-sub">Machine learning on KOSPI 200 market data</p>
         </header>
 
@@ -286,7 +302,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="education-h"><span class="sec-num">04</span> Education</h2>
+          <h2 class="sec-title" id="education-h"><span class="sec-num">04</span> <span class="sec-label">Education</span></h2>
           <p class="sec-sub">Degrees and activities</p>
         </header>
 
@@ -334,7 +350,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="experience-h"><span class="sec-num">05</span> Experience</h2>
+          <h2 class="sec-title" id="experience-h"><span class="sec-num">05</span> <span class="sec-label">Experience</span></h2>
           <p class="sec-sub">Courses and mentoring outside university</p>
         </header>
 
@@ -370,7 +386,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="certifications-h"><span class="sec-num">06</span> Certifications</h2>
+          <h2 class="sec-title" id="certifications-h"><span class="sec-num">06</span> <span class="sec-label">Certifications</span></h2>
           <p class="sec-sub">Data analytics, language and science communication</p>
         </header>
 
@@ -396,7 +412,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="volunteering-h"><span class="sec-num">07</span> Volunteering</h2>
+          <h2 class="sec-title" id="volunteering-h"><span class="sec-num">07</span> <span class="sec-label">Volunteering</span></h2>
           <p class="sec-sub">Community outreach supporting older adults living alone</p>
         </header>
 
@@ -444,7 +460,7 @@
       <div class="container">
         <header class="sec-head">
           <span class="sec-rule" aria-hidden="true"></span>
-          <h2 class="sec-title" id="skills-h"><span class="sec-num">08</span> Skills</h2>
+          <h2 class="sec-title" id="skills-h"><span class="sec-num">08</span> <span class="sec-label">Skills</span></h2>
           <p class="sec-sub">Languages, methods and tools</p>
         </header>
 
