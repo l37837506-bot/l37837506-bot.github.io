@@ -277,11 +277,10 @@ a:hover { color: var(--accent-dark); }
 }
 
 /* Photo top lines up with the cap height of "AI & Robotics":
-   kicker line (12px × 1.6) + title margin (20px) + Inter's cap offset at line-height 0.95 (≈0.11em). */
-.hero-photo { margin-top: calc(12px * 1.6 + 20px + 0.11 * var(--title-size)); }
+   Inter's cap offset at line-height 0.95 is about 0.11em. */
+.hero-photo { margin-top: calc(0.11 * var(--title-size)); }
 
 .hero-title {
-  margin-top: 20px;
   font-size: var(--title-size);
   font-weight: 800;
   line-height: 0.95;
