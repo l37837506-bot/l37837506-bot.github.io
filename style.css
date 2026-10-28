@@ -392,12 +392,19 @@ a:hover { color: var(--accent-dark); }
 
 /* 01 — Highlights */
 
+/* Stacking cards: each card sticks a little lower than the one before it. */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 28px;
 }
-.work-grid > li { display: flex; }
+.work-grid > li {
+  display: flex;
+  position: sticky;
+  top: calc(var(--nav-h) + 32px + var(--stack, 0) * 16px);
+}
+.work-grid > li:nth-child(2) { --stack: 1; }
+.work-grid > li:nth-child(3) { --stack: 2; }
+.work-grid > li:nth-child(4) { --stack: 3; }
 .work-card {
   display: flex;
   flex-direction: column;
@@ -410,6 +417,7 @@ a:hover { color: var(--accent-dark); }
   isolation: isolate;
 }
 .work-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow); color: inherit; }
+.work-grid .work-card { min-height: 240px; box-shadow: var(--shadow); }
 /* Soft spotlight that follows the pointer (position set by script.js). */
 .work-card::after {
   content: "";
@@ -573,20 +581,17 @@ a:hover { color: var(--accent-dark); }
 .project-card {
   display: grid;
   grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
-  overflow: hidden;
+  overflow: clip;  /* clip, not hidden: keeps the rounded corners without breaking the sticky award panel */
   box-shadow: var(--shadow);
 }
 
 .project-side {
-  display: flex;
-  flex-direction: column;
   padding: 40px;
   background: linear-gradient(165deg, var(--accent) 0%, #0A5DA6 60%, var(--accent-2) 100%);
   background-size: 200% 200%;
   color: #FFFFFF;
 }
-/* Rank at the top, award details settle at the bottom of the tall panel. */
-.project-side .kicker { margin-top: auto; padding-top: 32px; color: rgba(255, 255, 255, 0.85); }
+.project-side .kicker { margin-top: 32px; color: rgba(255, 255, 255, 0.85); }
 .rank {
   font-size: clamp(104px, 11vw, 160px);
   font-weight: 800;
@@ -818,35 +823,68 @@ a:hover { color: var(--accent-dark); }
 
 .marquee {
   overflow: hidden;
-  padding: 22px 0;
+  padding: 26px 0;
   border-block: 1px solid var(--line);
   background: var(--bg);
 }
 .marquee-track {
   display: flex;
+  align-items: baseline;
   width: max-content;
   white-space: nowrap;
 }
+/* Medium sans alternating with a serif italic; small accent dots between. */
 .marquee-track span {
   display: inline-flex;
   align-items: center;
-  font-size: clamp(40px, 6vw, 88px);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  font-size: clamp(30px, 4.2vw, 58px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 .marquee-track span:nth-child(even) {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--line-strong);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(34px, 4.8vw, 66px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--muted);
 }
 .marquee-track span::after {
   content: "";
-  width: 0.2em;
-  height: 0.2em;
-  margin: 0 0.5em;
+  width: 6px;
+  height: 6px;
+  margin: 0 clamp(18px, 2.4vw, 36px);
   border-radius: 50%;
-  background: var(--grad);
+  background: var(--accent);
+}
+
+/* ---------- Sticky section heads (desktop) ---------- */
+
+@media (min-width: 1024px) {
+  .sec-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+  .sec-layout > .sec-head {
+    position: sticky;
+    top: calc(var(--nav-h) + 32px);
+    margin-bottom: 0;
+  }
+  .sec-layout .sec-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: clamp(28px, 2.5vw, 36px);
+  }
+  .sec-layout .entry { grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: 40px; }
+  .sec-layout .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* The award panel's content follows along while the project steps scroll. */
+  .project-side-inner { position: sticky; top: calc(var(--nav-h) + 40px); }
 }
 
 /* ---------- Motion hooks (script.js) ---------- */
@@ -870,9 +908,9 @@ a:hover { color: var(--accent-dark); }
   .nav-links { display: none; }
   .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-card { grid-template-columns: minmax(0, 1fr); }
-  .project-side { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 32px; align-items: end; }
+  .project-side-inner { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 32px; align-items: end; }
   .project-side .rank { grid-row: span 4; }
-  .project-side .kicker { margin-top: 0; padding-top: 0; }
+  .project-side .kicker { margin-top: 0; }
 }
 
 @media (max-width: 767px) {
@@ -894,8 +932,9 @@ a:hover { color: var(--accent-dark); }
   .timeline { padding-left: 28px; }
   .timeline .entry::before { left: -28px; top: 36px; }
 
-  .project-side { display: block; padding: 28px 24px; }
-  .project-side .kicker { margin-top: 24px; padding-top: 0; }
+  .project-side { padding: 28px 24px; }
+  .project-side-inner { display: block; }
+  .project-side .kicker { margin-top: 24px; }
   .project-main { padding: 28px 20px; }
   .step { padding-left: 0; }
   .step::before { position: static; display: inline-grid; margin-right: 10px; vertical-align: middle; }

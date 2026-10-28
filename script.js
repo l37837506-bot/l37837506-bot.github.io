@@ -173,6 +173,25 @@
       yPercent: -35, ease: 'none',
       scrollTrigger: { trigger: '.work-grid', start: 'top bottom', end: 'bottom top', scrub: true }
     });
+
+    // Stacking highlight cards: each card eases back as the next one slides over it
+    // (sticky offsets come from style.css: nav height + 32px + 16px per card).
+    var stack = $$('.work-grid > li');
+    stack.forEach(function (li, i) {
+      var next = stack[i + 1];
+      if (!next) return;
+      gsap.to($('.work-card', li), {
+        scale: 0.94,
+        transformOrigin: '50% 0%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: next,
+          start: 'top bottom',
+          end: function () { return 'top ' + (64 + 32 + (i + 1) * 16) + 'px'; },
+          scrub: true
+        }
+      });
+    });
   }
 
   function entries() {
